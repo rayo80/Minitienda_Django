@@ -8,11 +8,12 @@
         {% for prod in productos %}
             <li>{{ prod.titulo }}</li>
             <ul>
-                <li>Autor: {{prod.categoria_id}} </li>
-                <li>Descripción: {{prod.sub_categoria_id }} </li>
-                <li>Precio: S/. {{prod.usuario_id}} </li>
-                <li>Descripcion: S/. {{prod.descripcion}} </li>
+                <li>categoria: {{prod.categoria_id}} </li>
+                <li>subcategoria: {{prod.sub_categoria_id }} </li>
+                <li>usuario:  {{prod.usuario_id}} </li>
+                <li>Descripcion:  {{prod.descripcion}} </li>
                 <li>Precio: S/. {{prod.precio}} </li>
+                <li>foto: <img src="XD {{prod.foto}}" ></li>
                 
             </ul>
         {% endfor %}

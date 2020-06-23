@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Productos {% endblock title %}
+
+{% block content %}
+
+    <ol>
+        {% for prod in productos %}
+            <li>{{ prod.titulo }}</li>
+            <ul>
+                <li>Autor: {{prod.categoria_id}} </li>
+                <li>Descripción: {{prod.sub_categoria_id }} </li>
+                <li>Precio: S/. {{prod.usuario_id}} </li>
+                <li>Descripcion: S/. {{prod.descripcion}} </li>
+                <li>Precio: S/. {{prod.precio}} </li>
+                
+            </ul>
+        {% endfor %}
+    </ol>
+        
+{% endblock %}

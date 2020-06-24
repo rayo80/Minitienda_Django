@@ -14,4 +14,12 @@ class productoView(TemplateView):
 
 
 
+class ProductoDetallado(TemplateView):
+    template_name = 'productos/productox.html'
+    
+    def get_context_data(self, **kwargs):
+        libro_slug = kwargs.get('slug')
+        kwargs['productoyo'] = producto.objects.get(slug=libro_slug)
+        return kwargs
+
 

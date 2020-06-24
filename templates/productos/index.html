@@ -1,19 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %} Productos {% endblock title %}
 
 {% block content %}
+    <h1>Revisa nuestras ofertas</h1>
 
     <ol>
         {% for prod in productos %}
-            <li>{{ prod.titulo }}</li>
+            <li><a href="{% url 'producto_detallado' slug=prod.slug %}">{{ prod.titulo }}</a></li>
             <ul>
                 <li>categoria: {{prod.categoria_id}} </li>
                 <li>subcategoria: {{prod.sub_categoria_id }} </li>
                 <li>usuario:  {{prod.usuario_id}} </li>
                 <li>Descripcion:  {{prod.descripcion}} </li>
                 <li>Precio: S/. {{prod.precio}} </li>
-                <li>foto: <img src="XD {{prod.foto}}" ></li>
+                {% if prod.foto %}
+                <li> <img src="{{prod.foto.url}}" alt=""> </li>
+                {% endif %}
+                
                 
             </ul>
         {% endfor %}

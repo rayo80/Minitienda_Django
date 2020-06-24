@@ -1,0 +1,44 @@
+h1{
+    
+    color: rgb(218, 212, 212);
+    display: block;
+    background-color: brown;
+    text-align: center;
+    
+}
+
+
+li img {
+    border: 1px solid rgb(226, 185, 185);
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+  }
+
+.imgprod1 {
+    text-align: center;
+    width: 50%;
+    float: left;
+
+     background-color: white;
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+     margin-bottom: 25px;
+     
+}
+img{
+    width: 100%;
+    object-fit: cover;
+     object-position: center center;
+}
+.imgprod2 {
+    text-align: center;
+    width: 40%;
+    margin-left: 5%;
+    float: left;
+
+     background-color: white;
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+     margin-bottom: 25px;
+}
+
+

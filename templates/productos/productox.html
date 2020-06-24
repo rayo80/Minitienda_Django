@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{productoyo.titulo}} {% endblock title %}
+
+{% block cabecera %}
+
+<section>
+    <div class="imgprod1"> 
+        {% if productoyo.foto %}
+            <img src="{{productoyo.foto.url}}" alt="no hay">
+        {% endif %}
+
+    </div>
+     <section class="imgprod2">
+        <h4>{{productoyo.titulo}}</h4>
+        <h4>{{productoyo.categoria_id}}/{{productoyo.sub_categoria_id}}</h4>
+        
+        <h4>{{productoyo.descripcion}}</h4>
+        <h4>Precio: S/.{{productoyo.precio}}</h4>
+
+
+
+     </section>
+
+</section>     
+     
+
+
+{% endblock cabecera %}
+
+
+{% block content %}
+
+
+
+{% endblock content %}

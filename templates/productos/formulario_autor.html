@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Forrmulario {% endblock title %}
+
+{% block content %}
+    <form action="{% url 'formulario' %}" method="POST" class="form-formulario">
+        {% csrf_token %}
+            {% for non_field_error in form.non_field_errors %}
+                <p>{{ non_field_error }}</p>
+            {% endfor %}
+            
+
+            <p>Añade esta categoria</p>
+            <p>titulo: {{form.titulo}}</p>
+            
+            <input type="submit" value="grabar">
+    </form>
+{% endblock %}

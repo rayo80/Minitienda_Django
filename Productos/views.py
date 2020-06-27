@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from .models import producto, categoria
-from .forms import CategoriaForm, SubcategoriaForm
+from .forms import CategoriaForm, SubcategoriaForm,ProductoForm
 
 # Create your views here.
 
@@ -58,4 +58,20 @@ class FormularioSubcategoriaView(TemplateView):
         if form.is_valid():
             form.save()
         context['formita'] = form
+        return self.render_to_response(context)
+
+
+class FormularioProductoView(TemplateView):
+    template_name = "productos/formulario_productos.html"
+
+    def get_context_data(self, **kwargs):
+        kwargs['esteesunvalormanejable'] = ProductoForm
+        return kwargs
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        form = ProductoForm(request.POST)
+        if form.is_valid():
+            form.save()
+        context['esteesunvalormanejable'] = form
         return self.render_to_response(context)

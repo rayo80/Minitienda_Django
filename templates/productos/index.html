@@ -2,13 +2,43 @@
 {% load static %}
 
 {% block title %} Productos {% endblock title %}
+{% block cssprincipal %}
+<link rel="stylesheet" href="{% static 'css/estilos_index.css' %}">    
+{% endblock cssprincipal %}
 
 {% block content %}
     <h1>Revisa nuestras ofertas</h1>
 
+    <h2>Accorde a los productos</h2>
+    <p>productos dentro ordenados</p>
+    <button class="accordion">Section 1</button>
+    <div class="panel">
+        {% for prod in  20productos%}
+            <a class="titulo" href="{% url 'producto_detallado' slug=prod.slug %}">{{ prod.titulo }}</a>
+            <br>
+        {% endfor %}
+    </div>
+
+    <button class="accordion">Section 2</button>
+    <div class="panel">
+        {% for prod in  40productos%}
+            <a class="titulo" href="{% url 'producto_detallado' slug=prod.slug %}">{{ prod.titulo }}</a>
+            <br>
+        {% endfor %}
+    </div>
+
+    
+
+
+
+
+
+
+
+
     <ol>
         {% for prod in productos %}
-            <li><a href="{% url 'producto_detallado' slug=prod.slug %}">{{ prod.titulo }}</a></li>
+            <li class="tit-cont"><a class="titulo" href="{% url 'producto_detallado' slug=prod.slug %}">{{ prod.titulo }}</a></li>
             <ul>
                 <li>categoria: {{prod.categoria_id}} </li>
                 <li>subcategoria: {{prod.sub_categoria_id }} </li>
@@ -31,3 +61,8 @@
             </br>
             <a href="{% url 'formulario_producto'  %}">click aqui para añadir producto</a>
 {% endblock %}
+
+{% block script %}         
+<script src="{% static 'js/script.js' %}"></script>>
+
+{% endblock script %}

@@ -7,6 +7,10 @@
   <title>{% block title %} Home {% endblock title %}</title>
   
   <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+  {% block cssprincipal %}
+      
+  {% endblock cssprincipal %}
+  
 </head>
 <header>
   {% block cabecera %}
@@ -19,6 +23,9 @@
   
   {% block content %}
   {% endblock content %}
+  {% block script %}         
+  {% endblock script %}
 
 </body>
+
 </html>

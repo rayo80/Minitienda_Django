@@ -1,16 +1,34 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,ListView
 from .models import producto, categoria
 from .forms import CategoriaForm, SubcategoriaForm,ProductoForm
+from django.core.paginator import Paginator
+
+
+
+tamaño=producto.objects.count()
+i=int(tamaño/20)
+
+
 
 # Create your views here.
 
 class productoView(TemplateView):
     template_name = "productos/index.html"
+                     
     
     def get_context_data(self, **kwargs):
-        kwargs['productos'] = producto.objects.all()
+        kwargs['productos'] = producto.objects.all() 
+        kwargs['20productos']= producto.objects.all()[0:20]
+        kwargs['40productos']= producto.objects.all()[20:40]
+
         return kwargs
+
+
+
+
+
+    
 
 
 
@@ -19,7 +37,7 @@ class ProductoDetallado(TemplateView):
     template_name = 'productos/productox.html'
     
     def get_context_data(self, **kwargs):
-        libro_slug = kwargs.get('slug')
+        libro_slug = kwargs.get('slug') #del url recibe que eslug quiere
         kwargs['productoyo'] = producto.objects.get(slug=libro_slug)
         return kwargs
 

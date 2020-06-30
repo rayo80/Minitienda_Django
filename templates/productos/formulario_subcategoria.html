@@ -3,7 +3,7 @@
 {% block title %} Forrmulario {% endblock title %}
 
 {% block content %}
-    <form action="{% url 'formulario' %}" method="POST" class="form-formulario">
+    <form action="{% url 'formulario_subcategoria' %}" method="POST" class="form-formulario">
         {% csrf_token %}
             {% for non_field_error in form.non_field_errors %}
                 <p>{{ non_field_error }}</p>

@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
-from .views import productoView ,ProductoDetallado,FormularioCategoriaView,FormularioSubcategoriaView,FormularioProductoView
+from .views import productoView ,ProductoDetallado,FormularioCategoriaView,FormularioSubcategoriaView,FormularioProductoView,ProductoListado
 
 
 
@@ -17,6 +17,9 @@ urlpatterns = [
      path('formulario_subcat/',FormularioSubcategoriaView.as_view(),name='formulario_subcategoria'),
      #url para productos
      path('formulario_product/',FormularioProductoView.as_view(),name='formulario_producto'),
+
+
+     path('listado/',ProductoListado.as_view(),name='enlistado'),
 ]
 
 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Productos {% endblock title %}
+{% block title %} Productospaginados {% endblock title %}
 {% block cssprincipal %}
 <link rel="stylesheet" href="{% static 'css/estilos_index.css' %}">    
 {% endblock cssprincipal %}
@@ -9,33 +9,7 @@
 {% block content %}
     <h1>Revisa nuestras ofertas</h1>
 
-    <h2>Accorde a los productos</h2>
-    <p>productos dentro ordenados</p>
-    <button class="accordion">Section 1</button>
-    <div class="panel">
-        {% for prod in  20productos%}
-            <a class="titulo" href="{% url 'producto_detallado' slug=prod.slug %}">{{ prod.titulo }}</a>
-            <br>
-        {% endfor %}
-    </div>
-
-    <button class="accordion">Section 2</button>
-    <div class="panel">
-        {% for prod in  40productos%}
-            <a class="titulo" href="{% url 'producto_detallado' slug=prod.slug %}">{{ prod.titulo }}</a>
-            <br>
-        {% endfor %}
-    </div>
-
     
-
-
-
-
-
-
-
-
     <ol>
         {% for prod in productos %}
             <li class="tit-cont"><a class="titulo" href="{% url 'producto_detallado' slug=prod.slug %}">{{ prod.titulo }}</a></li>
@@ -55,18 +29,18 @@
     </ol>
     <div class="pagination">
         <span class="step-links">
-            {% if productos.has_previous %}
+            {% if page_obj.has_previous %}
                 <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ productos.previous_page_number }}">previous</a>
+                <a href="?page = {{ page_obj.previous_page_number }}">previous</a>
             {% endif %}
-    
+
             <span class="current">
-                Page {{ productos.number }} of {{ productos.paginator.num_pages }}.
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
             </span>
-    
-            {% if productos.has_next %}
-                <a href="?page={{ productos.next_page_number }}">next</a>
-                <a href="?page={{ productos.paginator.num_pages }}">last &raquo;</a>
+
+            {% if page_obj.has_next %}
+                <a href="?page= {{ page_obj.next_page_number }}">next</a>
+                <a href="?page= {{ page_obj.paginator.num_pages }}">last &raquo;</a>
             {% endif %}
         </span>
     </div>
@@ -79,6 +53,6 @@
 {% endblock %}
 
 {% block script %}         
-<script src="{% static 'js/script.js' %}"></script>>
+
 
 {% endblock script %}

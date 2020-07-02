@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView,ListView
 from .models import producto, categoria
 from .forms import CategoriaForm, SubcategoriaForm,ProductoForm
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator,PageNotAnInteger
 
 
 
@@ -15,16 +15,77 @@ i=int(tamaño/20)
 
 class productoView(TemplateView):
     template_name = "productos/index.html"
-                     
+    
+    
+    
+    # def listing(request):
+    # contact_list = Contact.objects.all()
+    # paginator = Paginator(contact_list, 25) # Show 25 contacts per page.
+
+    #page_number = request.GET.get('page')
+    #page_obj = paginator.get_page(page_number)
+    # return render(request, 'list.html', {'page_obj': page_obj})
+
+
+    #def get(self,request,*args,**kwargs)
+
+    def get_queryset(self):           
+        queryset = producto.objects.all()
+        return queryset                
     
     def get_context_data(self, **kwargs):
-        kwargs['productos'] = producto.objects.all() 
-        kwargs['20productos']= producto.objects.all()[0:20]
-        kwargs['40productos']= producto.objects.all()[20:40]
+                
+        #kwargs['productos'] = self.page_obj
+        #kwargs['productos'] = self.get_queryset() 
+        kwargs['20productos']= self.get_queryset()[0:20]
+        kwargs['40productos']= self.get_queryset()[20:40]
 
+
+        #paginacion
+        paginator=Paginator(self.get_queryset(),3)
+        numerototal=paginator.num_pages
+        
+        page=self.request.GET.get('page',1)#//el 1 es la pagina que se envia por defecto al llamar con el url por defecto de la pagina
+        
+        print(page)
+        
+        #page=int(page) #//el valor de page es un numero pero que es mandado como str
+        #objetodelapagina=paginator.page(page)
+    
+        # if page <0:                                     
+        #     objetodelapagina=paginator.page(1)    
+        #//no se puede hacer esto debido a que el error ya ha ocurrido al mandar un numero negativo
+        #//con el nombre de la excepcion empty
+        
+        try:
+            
+            objetodelapagina=paginator.page(page)
+            page=int(page)
+        except PageNotAnInteger:
+            page=1
+            objetodelapagina=paginator.page(1)
+        
+          
+        
+
+        
+        kwargs['productos']=objetodelapagina
         return kwargs
 
 
+
+
+
+
+
+
+
+
+class ProductoListado(ListView):
+    template_name = 'productos/enlistado.html'
+    model = producto
+    paginate_by = 2
+    context_object_name = 'productos'
 
 
 

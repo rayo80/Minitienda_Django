@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} quejas {% endblock title %}
+{% block cssprincipal %}
+<link rel="stylesheet" href="{% static 'css/estilos_index.css' %}">    
+{% endblock cssprincipal %}
+
+{% block content %}
+    <h1>Revisa nuestras ofertas</h1>
+
+    <h2>Accorde a los productos</h2>
+    <p>productos dentro ordenados</p>
+    <button class="accordion">Section 1</button>
+    <div class="panel">
+        {% for quej in  20productos%}
+            <a class="titulo" href="#">{{ quej.usuarioqueja }}</a>
+            <br>
+        {% endfor %}
+    </div>
+
+    <button class="accordion">Section 2</button>
+    <div class="panel">
+        {% for quej in  40productos%}
+            <a class="titulo" href="#">{{ quej.usuarioqueja }}</a>
+            <br>
+        {% endfor %}
+    </div>
+
+    
+
+    <ol>
+        {% for prod in prod_cont %}
+            <li class="tit-cont"><a class="titulo" href="{% url 'producto_detallado' slug=prod.3 %}">{{ prod.titulo }}</a></li>
+            <ul>
+                <li>titulo del anuncio reportado: {{prod.0}} </li>
+                <li>total de quejas{{prod.1 }} </li>
+                <li>quejas sin revisar  {{prod.2}} </li>
+          
+                
+                
+                
+            </ul>
+        {% endfor %}
+    </ol>
+  
+{% endblock %}
+
+{% block script %}         
+<script src="{% static 'js/script.js' %}"></script>>
+
+{% endblock script %}

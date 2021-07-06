@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
-from .views import productoView ,ProductoDetallado,FormularioCategoriaView,FormularioSubcategoriaView,FormularioProductoView,ProductoListado
+from .views import productoView ,ProductoDetallado,FormularioCategoriaView,FormularioSubcategoriaView,FormularioProductoView,ProductoListado,AnunciosReportados
 
 
 
@@ -9,6 +9,7 @@ from .views import productoView ,ProductoDetallado,FormularioCategoriaView,Formu
 
 urlpatterns = [
      path('',productoView.as_view(),name='index'),
+
      #en vez de int se usa slug
      path('<slug:slug>',ProductoDetallado.as_view(),name='producto_detallado'), 
      #url para el formulario
@@ -20,6 +21,7 @@ urlpatterns = [
 
 
      path('listado/',ProductoListado.as_view(),name='enlistado'),
+     path('quejas/',AnunciosReportados.as_view(),name='quejas'),
 ]
 
 

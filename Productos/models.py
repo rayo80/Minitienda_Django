@@ -57,6 +57,7 @@ class producto(models.Model):
     precio = models.DecimalField(max_digits=12, decimal_places=0)
     foto = models.ImageField( upload_to='producto/%Y/%m/', null=True, blank=True)
     slug = AutoSlugField(populate_from=('titulo'), unique=True )
+   
 
 
     class Meta:
@@ -68,3 +69,25 @@ class producto(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+class Queja(models.Model):
+    f1 = 'f1'
+    f2 = 'f2'
+    TEMAS =(
+        (f1,'imcumplimiento'),
+        (f2,'anuncio ficticio')
+    )
+
+    # Define fields here
+    id = models.AutoField(primary_key=True)
+    
+    usuarioqueja = models.CharField(max_length=200)
+    producto = models.ForeignKey('producto',related_name='producto',on_delete=models.CASCADE)  #esto simulara el producto del cual nos quejaremos
+    
+    content= models.TextField(max_length=1000) 
+    tema=models.CharField(max_length=40,choices=TEMAS)
+   
+
+    def __str__(self):
+        return self.tema

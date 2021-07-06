@@ -13,7 +13,7 @@
     <p>productos dentro ordenados</p>
     <button class="accordion">Section 1</button>
     <div class="panel">
-        {% for prod in  20productos%}
+        {% for prod in  bloque1%}
             <a class="titulo" href="{% url 'producto_detallado' slug=prod.slug %}">{{ prod.titulo }}</a>
             <br>
         {% endfor %}
@@ -21,7 +21,7 @@
 
     <button class="accordion">Section 2</button>
     <div class="panel">
-        {% for prod in  40productos%}
+        {% for prod in  bloque2%}
             <a class="titulo" href="{% url 'producto_detallado' slug=prod.slug %}">{{ prod.titulo }}</a>
             <br>
         {% endfor %}
@@ -76,6 +76,8 @@
             <a href="{% url 'formulario_subcategoria'  %}">click aqui para añadir subcategoria</a>
             </br>
             <a href="{% url 'formulario_producto'  %}">click aqui para añadir producto</a>
+             </br>
+            <a href="{% url 'quejas'  %}">click aqui para añadir producto</a>
 {% endblock %}
 
 {% block script %}         

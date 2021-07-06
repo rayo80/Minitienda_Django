@@ -1,13 +1,23 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView,ListView
-from .models import producto, categoria
+from .models import producto, categoria,Queja
 from .forms import CategoriaForm, SubcategoriaForm,ProductoForm
 from django.core.paginator import Paginator,PageNotAnInteger
 
 
 
-tamaño=producto.objects.count()
-i=int(tamaño/20)
+
+
+
+
+distintos = Queja.objects.values('producto').distinct() #no queremos quejas de productos repetidos --->traemos el total de productos que tienen quejas
+print(distintos)
+for com in distintos:
+    prod = producto.objects.filter(id = com['producto']).first()
+    contador_total = Queja.objects.filter(producto = prod).count()
+    
+
+
 
 
 
@@ -34,11 +44,24 @@ class productoView(TemplateView):
         return queryset                
     
     def get_context_data(self, **kwargs):
-                
-        #kwargs['productos'] = self.page_obj
-        #kwargs['productos'] = self.get_queryset() 
-        kwargs['20productos']= self.get_queryset()[0:20]
-        kwargs['40productos']= self.get_queryset()[20:40]
+        #agrupar automaticamente       
+        qonda=producto.objects.order_by('precio')
+        #seleccion de grupos de 4 en 4
+        paginas=Paginator(qonda,4)
+        numero=paginas.num_pages #me da el total de grupos
+        
+
+        objetos_pagina=paginas.page(1)
+        
+        i=0    
+        for i in range(numero):
+            i=i+1
+            kwargs['bloque'+str(i)]=paginas.page(i)
+
+       
+            
+            
+
 
 
         #paginacion
@@ -47,7 +70,7 @@ class productoView(TemplateView):
         
         page=self.request.GET.get('page',1)#//el 1 es la pagina que se envia por defecto al llamar con el url por defecto de la pagina
         
-        print(page)
+        
         
         #page=int(page) #//el valor de page es un numero pero que es mandado como str
         #objetodelapagina=paginator.page(page)
@@ -72,6 +95,35 @@ class productoView(TemplateView):
         kwargs['productos']=objetodelapagina
         return kwargs
 
+
+class AnunciosReportados(TemplateView):
+    template_name = 'productos/anuncios_reportados.html'
+    
+     
+    def get_context_data(self, **kwargs):
+        complaints =Queja.objects.all()         #traemos todas las quejas que tengamos
+        all_products = producto.objects.all() #traemos todos los productos
+        distintos = Queja.objects.values('producto').distinct() #no queremos quejas de productos repetidos --->traemos el total de productos que tienen quejas
+        print(distintos)
+        prod_cont=[]
+        for com in distintos:  
+            prod = producto.objects.filter(id = com['producto']).first()   #extraer nombre de producto //el primer producto es el model y el segundo es del campo de la queja
+            
+            contador_total = Queja.objects.filter(producto = prod).count()  #contar cuantas quejas hay por producto //producto en azul se refiere al campo de la base
+            contador_sin_revisar = Queja.objects.filter(producto = prod).count() #filtradas por tema(cuenta las quejas que estan sin revisar)
+            prod_slug = prod.slug  #extraer el slug de prod
+            prod_cont.append((prod,contador_total, contador_sin_revisar, prod_slug))  #guardar la tupla en el array 
+
+
+
+        kwargs['20productos']= Queja.objects.all()[0:20]
+        kwargs['40productos']= Queja.objects.all()[20:40]
+            
+        kwargs['prod_cont'] = prod_cont  #esto envia una tupla
+        kwargs['complaints'] = complaints
+        kwargs['all_products'] = all_products
+
+        return kwargs
 
 
 
